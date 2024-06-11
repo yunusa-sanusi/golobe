@@ -1,3 +1,0 @@
-- convert to postgresql database
-- set the permissions for different groups
-- do the authentication and registration with jwt.
