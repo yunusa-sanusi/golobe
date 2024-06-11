@@ -47,6 +47,19 @@ class Customer(User):
         return super().save(**kwargs)
 
 
+class CustomerProfile(models.Model):
+    user = models.OneToOneField(Customer, on_delete=models.CASCADE)
+    profile_picture = models.ImageField(upload_to='images/profile_picture/admin/',
+                                        default='https://res.cloudinary.com/dydxaxs27/image/upload/v1717836117/default-profile-image.svg')
+    bio = models.TextField()
+
+    class Meta:
+        verbose_name_plural = 'Customer Profiles'
+
+    def __str__(self) -> str:
+        return self.user.username
+
+
 class Staff(User):
     base_type = User.Types.STAFF
     objects = StaffManager()
@@ -58,3 +71,16 @@ class Staff(User):
         if not self.pk:
             self.type = self.base_type
         return super().save(**kwargs)
+
+
+class StaffProfile(models.Model):
+    user = models.OneToOneField(Staff, on_delete=models.CASCADE)
+    profile_picture = models.ImageField(upload_to='images/profile_picture/admin/',
+                                        default='https://res.cloudinary.com/dydxaxs27/image/upload/v1717836117/default-profile-image.svg')
+    bio = models.TextField()
+
+    class Meta:
+        verbose_name_plural = 'Staff Profiles'
+
+    def __str__(self) -> str:
+        return self.user.username
