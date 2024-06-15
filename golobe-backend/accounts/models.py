@@ -12,10 +12,10 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     base_type = Types.STAFF
 
-    first_name = models.CharField(max_length=50)
-    last_name = models.CharField(max_length=50)
-    username = models.CharField(max_length=50, unique=True)
-    email = models.EmailField(unique=True)
+    first_name = models.CharField(max_length=50, db_index=True)
+    last_name = models.CharField(max_length=50, db_index=True)
+    username = models.CharField(max_length=50, unique=True, db_index=True)
+    email = models.EmailField(unique=True, db_index=True)
     phone_number = models.CharField(max_length=20)
     dob = models.DateField(_('Date of Birth'), null=True, blank=True)
     address = models.CharField(max_length=200)
@@ -48,7 +48,7 @@ class Customer(User):
 
 
 class CustomerProfile(models.Model):
-    user = models.OneToOneField(Customer, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     profile_picture = models.ImageField(upload_to='images/profile_picture/admin/',
                                         default='https://res.cloudinary.com/dydxaxs27/image/upload/v1717836117/default-profile-image.svg')
     bio = models.TextField()
@@ -74,7 +74,7 @@ class Staff(User):
 
 
 class StaffProfile(models.Model):
-    user = models.OneToOneField(Staff, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     profile_picture = models.ImageField(upload_to='images/profile_picture/admin/',
                                         default='https://res.cloudinary.com/dydxaxs27/image/upload/v1717836117/default-profile-image.svg')
     bio = models.TextField()
