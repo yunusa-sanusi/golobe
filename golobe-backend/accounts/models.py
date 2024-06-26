@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.utils.translation import gettext_lazy as _
+from autoslug import AutoSlugField
 
 from .managers import CustomerManager, StaffManager, UserManager
 
@@ -19,6 +20,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     phone_number = models.CharField(max_length=20)
     dob = models.DateField(_('Date of Birth'), null=True, blank=True)
     address = models.CharField(max_length=200)
+    slug = AutoSlugField(unique=True, always_update=True,
+                         populate_from='username')
     is_superuser = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=True)
     is_active = models.BooleanField(default=True)
@@ -51,10 +54,16 @@ class CustomerProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     profile_picture = models.ImageField(upload_to='images/profile_picture/admin/',
                                         default='https://res.cloudinary.com/dydxaxs27/image/upload/v1717836117/default-profile-image.svg')
+    slug = models.SlugField()
     bio = models.TextField()
 
     class Meta:
         verbose_name_plural = 'Customer Profiles'
+
+    def save(self, **kwargs) -> None:
+        if not self.pk:
+            self.slug = self.user.username
+        return super().save(**kwargs)
 
     def __str__(self) -> str:
         return self.user.username
@@ -77,10 +86,16 @@ class StaffProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     profile_picture = models.ImageField(upload_to='images/profile_picture/admin/',
                                         default='https://res.cloudinary.com/dydxaxs27/image/upload/v1717836117/default-profile-image.svg')
+    slug = models.SlugField()
     bio = models.TextField()
 
     class Meta:
         verbose_name_plural = 'Staff Profiles'
+
+    def save(self, **kwargs) -> None:
+        if not self.pk:
+            self.slug = self.user.username
+        return super().save(**kwargs)
 
     def __str__(self) -> str:
         return self.user.username

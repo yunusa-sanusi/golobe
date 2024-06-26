@@ -15,8 +15,19 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenBlacklistView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    # for login
+    path('api/token', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    # to get a new access token, provided the refresh token has not expired
+    path('api/token/refresh', TokenRefreshView.as_view(), name='token_refresh'),
+    # for logout. makes so the refresh token cannot be used again after it expires
+    path('api/token/blacklist', TokenBlacklistView.as_view(),
+         name='token_blacklist'),
+
+    path('api/accounts/', include('accounts.urls')),
 ]
