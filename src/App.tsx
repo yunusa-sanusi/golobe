@@ -1,4 +1,10 @@
+import Input from './components/Input';
+
 const App = () => {
-  return <div>App</div>;
+  return (
+    <div>
+      <Input />
+    </div>
+  );
 };
 export default App;
