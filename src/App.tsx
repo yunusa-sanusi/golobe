@@ -1,10 +1,9 @@
-import Input from './components/Input';
+import { RouterProvider } from 'react-router';
+
+import router from './Routes';
 
 const App = () => {
-  return (
-    <div>
-      <Input />
-    </div>
-  );
+  return <RouterProvider router={router} />;
 };
+
 export default App;
