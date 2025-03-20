@@ -56,7 +56,7 @@ const SignupForm = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="flex gap-x-3">
+      <div className="block md:flex md:gap-x-3">
         <Input
           type="text"
           label="First Name"
@@ -75,7 +75,7 @@ const SignupForm = () => {
         />
       </div>
 
-      <div className="flex gap-x-3">
+      <div className="block md:flex md:gap-x-3">
         <Input
           type="email"
           label="Email"
