@@ -19,7 +19,7 @@ const AuthPageCarousel = () => {
   }, []);
 
   return (
-    <div className="relative w-full hidden md:w-[466px] h-full md:block overflow-hidden">
+    <div className="relative w-full hidden md:block md:w-[466px] h-full overflow-hidden">
       <div className="relative w-full h-full">
         {images.map((img, index) => (
           <img

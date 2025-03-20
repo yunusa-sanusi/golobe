@@ -48,11 +48,11 @@ const LoginForm = () => {
         errors={errors}
       />
 
-      <div className="flex justify-between text-sm font-semibold">
+      <div className="flex flex-col gap-y-2 md:gap-y-0 md:flex-row md:justify-between text-sm font-semibold w-full mb-8">
         <div className="flex items-center gap-x-1">
           <input type="checkbox" className="w-4 h-4" /> Remember Me
         </div>
-        <Link to="" className="text-highlight-text">
+        <Link to="/auth/forgot-password" className="text-highlight-text">
           Forgot Password
         </Link>
       </div>
@@ -62,7 +62,7 @@ const LoginForm = () => {
         <p className="text-sm font-semibold">
           Don't have an account?{' '}
           <Link to="/auth/signup" className="text-highlight-text">
-            Sign Up
+            Login to your account
           </Link>
         </p>
       </div>
