@@ -49,7 +49,7 @@ const Navbar = () => {
           />
           <span className="hidden md:block">|</span>
           <NavLink
-            to="/"
+            to="/dashboard"
             className="flex items-center gap-x-2 hover:text-secondary-bg"
           >
             <div className="w-11 h-11 rounded-full">
