@@ -19,7 +19,7 @@ const Navbar = () => {
   return (
     <header className="w-full h-20 shadow-md text-sm font-semibold">
       <nav className="w-[95%] md:w-[90%] lg:w-[80%] h-full mx-auto flex justify-between items-center">
-        <div className="hidden md:flex gap-x-4">
+        <div className="h-full hidden md:flex gap-x-4">
           <NavItem
             url="/flights"
             text="Find Flight"
