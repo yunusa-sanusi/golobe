@@ -1,12 +1,13 @@
 import { Outlet } from 'react-router';
 
 import HeroCover from '../../components/dashboard/HeroCover';
+import DashboardNav from '../../components/dashboard/DashboardNav';
 
 const Dashboard = () => {
   return (
     <section>
       <HeroCover />
-      <h1>Dashboard Navigation</h1>
+      <DashboardNav />
       <Outlet />
     </section>
   );
