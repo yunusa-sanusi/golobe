@@ -12,7 +12,7 @@
 }
 
 body {
-  background-color: var(--color-primary-bg);
+  background-color: #fafbfc;
   font-family: 'Montserrat', serif;
   font-optical-sizing: auto;
   font-weight: 400;
