@@ -16,7 +16,7 @@ const Button = ({ type, text, style }: ButtonType) => {
   return (
     <button
       type={type}
-      className={`w-full px-4 py-3 rounded-sm cursor-pointer font-semibold text-sm ${btnStyle}`}
+      className={`w-full px-4 py-3 rounded-sm cursor-pointer transition-all duration-300 font-semibold text-sm ${btnStyle}`}
     >
       {text}
     </button>
