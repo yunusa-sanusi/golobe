@@ -6,7 +6,7 @@ import DashboardNavLink from './DashboardNavLink';
 
 const DashboardNav = () => {
   return (
-    <nav className="w-full h-20 bg-primary-bg shadow-md rounded-md flex justify-between items-center gap-x-2 md:gap-x-6 px-2 md:px-6 font-semibold mt-6 relative">
+    <nav className="w-full h-20 bg-primary-bg shadow-md rounded-lg flex justify-between items-center gap-x-2 md:gap-x-6 px-2 md:px-6 font-semibold mt-6 relative">
       <DashboardNavLink
         text="Account"
         icon={<FaUser size={18} className="" />}
