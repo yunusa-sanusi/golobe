@@ -1,5 +1,5 @@
-import FlightTicketContainer from './FlightTicketContainer';
-import HotelTicketContainer from './HotelTicketContainer';
+import FlightTicketContainer from './flight/FlightTicketContainer';
+import HotelTicketContainer from './hotel/HotelTicketContainer';
 
 type TicketContainerProps = {
   activeTab: 'flights' | 'stays';
@@ -7,7 +7,7 @@ type TicketContainerProps = {
 
 const TicketContainer = ({ activeTab }: TicketContainerProps) => {
   return (
-    <div>
+    <div className="overflow-x-scroll">
       {activeTab === 'flights' ? (
         <FlightTicketContainer />
       ) : (
