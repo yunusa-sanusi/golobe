@@ -47,7 +47,7 @@ const Footer = () => {
               { text: 'Bali Travel Guide', url: '/' },
               { text: 'Sri Lanks Travel Guide', url: '/' },
               { text: 'Peru Travel Guide', url: '/' },
-              { text: 'Bali Travel Guide', url: '/' },
+              { text: 'Egypt Travel Guide', url: '/' },
             ]}
           />
           <FooterItemsGroup
