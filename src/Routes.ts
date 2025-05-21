@@ -8,6 +8,7 @@ import {
   ForgotPassword,
   VerifyCode,
   SetPassword,
+  VerifyEmail,
 } from './pages/auth';
 import { Dashboard, Account, Ticket, PaymentMethod } from './pages/dashboard';
 
@@ -35,7 +36,9 @@ const router = createBrowserRouter([
       { path: 'login', Component: Login },
       { path: 'forgot-password', Component: ForgotPassword },
       { path: 'set-password', Component: SetPassword },
+      { path: 'set-password', Component: SetPassword },
       { path: 'verify-code', Component: VerifyCode },
+      { path: 'email-verification', Component: VerifyEmail },
     ],
   },
 ]);

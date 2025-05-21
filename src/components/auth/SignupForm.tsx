@@ -1,8 +1,12 @@
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { Link } from 'react-router';
 
+// Components
 import Input from '../Input';
 import Button from '../Button';
+
+// Services
+import { createEmailPasswordUser } from '../../services/auth';
 
 export type FormData = {
   firstName: string;
@@ -19,11 +23,18 @@ const SignupForm = () => {
     register,
     handleSubmit,
     watch,
+    reset,
     formState: { errors },
   } = useForm<FormData>();
 
   const onSubmit: SubmitHandler<FormData> = (data) => {
-    console.log(data);
+    createEmailPasswordUser(
+      data.firstName,
+      data.lastName,
+      data.email,
+      data.password,
+    );
+    reset();
   };
 
   const emailValidation = {
