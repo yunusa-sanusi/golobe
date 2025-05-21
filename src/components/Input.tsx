@@ -42,7 +42,7 @@ const Input = <T extends FieldValues>({
       />
       <label
         htmlFor={field}
-        className="absolute px-1 text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-[0.9rem] translate-x-2 origin-[0] peer-placeholder-shown:-translate-y-1 peer-placeholder-shown:scale-100 peer-focus:-translate-y-[1.5rem] peer-focus:translate-x-2 peer-focus:bg-primary-bg peer-focus:scale-75 peer-focus:text-primary-text"
+        className="absolute px-1 text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-[0.9rem] translate-x-2 origin-[0] bg-primary-bg peer-placeholder-shown:-translate-y-1 peer-placeholder-shown:scale-100 peer-focus:-translate-y-[1.5rem] peer-focus:translate-x-2 peer-focus:bg-primary-bg peer-focus:scale-75 peer-focus:text-primary-text"
       >
         {label}
       </label>

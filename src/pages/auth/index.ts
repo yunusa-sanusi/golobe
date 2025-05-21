@@ -3,3 +3,4 @@ export { default as Signup } from './Signup';
 export { default as SetPassword } from './SetPassword';
 export { default as ForgotPassword } from './ForgotPassword';
 export { default as VerifyCode } from './VerifyCode';
+export { default as VerifyEmail } from './VerifyEmail';
