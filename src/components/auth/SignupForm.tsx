@@ -1,11 +1,10 @@
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { Link } from 'react-router';
+import { Link, redirect } from 'react-router';
 
 // Components
 import Input from '../Input';
 import Button from '../Button';
 
-// Services
 import { createEmailPasswordUser } from '../../services/auth';
 
 export type FormData = {
@@ -28,13 +27,9 @@ const SignupForm = () => {
   } = useForm<FormData>();
 
   const onSubmit: SubmitHandler<FormData> = (data) => {
-    createEmailPasswordUser(
-      data.firstName,
-      data.lastName,
-      data.email,
-      data.password,
-    );
+    createEmailPasswordUser(data);
     reset();
+    redirect('/login');
   };
 
   const emailValidation = {
@@ -148,7 +143,10 @@ const SignupForm = () => {
       <div className="mt-4 flex justify-center">
         <p className="text-sm font-semibold">
           Already have an account?{' '}
-          <Link to="/auth/login" className="text-highlight-text">
+          <Link
+            to="/auth/login"
+            className="text-highlight-text hover:text-secondary-bg transition-all duration-300"
+          >
             Login
           </Link>
         </p>
