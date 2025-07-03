@@ -4,6 +4,9 @@ import { Link } from 'react-router';
 import Input from '../Input';
 import Button from '../Button';
 
+// Services
+import { loginEmailPasswordUser } from '../../services/auth';
+
 export type FormData = {
   email: string;
   password: string;
@@ -16,8 +19,12 @@ const LoginForm = () => {
     formState: { errors },
   } = useForm<FormData>();
 
-  const onSubmit: SubmitHandler<FormData> = (data) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<FormData> = async (data) => {
+    const authResponse = await loginEmailPasswordUser(
+      data.email,
+      data.password,
+    );
+    console.log(authResponse);
   };
 
   const emailValidation = {
@@ -57,12 +64,15 @@ const LoginForm = () => {
         </Link>
       </div>
 
-      <Button type="submit" text="Create Account" style="primary" />
+      <Button type="submit" text="Login to your Account" style="primary" />
       <div className="mt-4 flex justify-center">
         <p className="text-sm font-semibold">
           Don't have an account?{' '}
-          <Link to="/auth/signup" className="text-highlight-text">
-            Login to your account
+          <Link
+            to="/auth/signup"
+            className="text-highlight-text hover:text-secondary-bg transition-all duration-300"
+          >
+            Create your account
           </Link>
         </p>
       </div>

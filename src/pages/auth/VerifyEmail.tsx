@@ -3,20 +3,16 @@ import { Link, useSearchParams } from 'react-router';
 
 import { useMetadata } from '../../hooks/useMetadata';
 
-// services
-import { verifyEmail } from '../../services/auth';
-
 const VerifyEmail = () => {
   useMetadata('Email Verification');
 
   const [searchParams] = useSearchParams();
 
-  useEffect(() => {
-    const userId = searchParams.get('userId');
-    const secret = searchParams.get('secret');
+  // useEffect(() => {
+  //   const userId = searchParams.get('userId');
+  //   const secret = searchParams.get('secret');
 
-    verifyEmail(userId as string, secret as string);
-  }, [searchParams]);
+  // }, [searchParams]);
 
   return (
     <div>

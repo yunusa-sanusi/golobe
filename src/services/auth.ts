@@ -1,39 +1,51 @@
-import { ID } from 'appwrite';
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from 'firebase/auth';
 
-import account from '../appwriteConfig';
+import { collection, query, where, addDoc, getDocs } from 'firebase/firestore';
 
-export const createEmailPasswordUser = async (
-  firstName: string,
-  lastName: string,
+import app from '../config/firebaseConfig';
+import db from './db';
+
+// types
+import { FormData as SignUpFormDataType } from '../components/auth/SignupForm';
+
+const auth = getAuth(app);
+
+export const createEmailPasswordUser = async (userData: SignUpFormDataType) => {
+  try {
+    const newUser = await createUserWithEmailAndPassword(
+      auth,
+      userData.email,
+      userData.password,
+    );
+
+    await addDoc(collection(db, 'profiles'), {
+      userId: newUser.user.uid,
+      firstName: userData.firstName,
+      lastName: userData.lastName,
+      phone: userData.phone,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const loginEmailPasswordUser = async (
   email: string,
   password: string,
 ) => {
-  const userId = ID.unique();
   try {
-    await account.create(userId, email, password, `${firstName} ${lastName}`);
-    await account.createEmailPasswordSession(email, password);
-    await sendVerificationEmail();
-    await account.deleteSession('current');
-  } catch (error) {
-    console.log(error);
-  }
-};
+    const user = await signInWithEmailAndPassword(auth, email, password);
 
-const sendVerificationEmail = async () => {
-  try {
-    const response = await account.createVerification(
-      `http://localhost:5173/auth/email-verification`,
+    const profileQuery = query(
+      collection(db, 'profiles'),
+      where('userId', '==', user.user.uid),
     );
-    console.log('Email sent', response);
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-export const verifyEmail = async (userId: string, secret: string) => {
-  try {
-    await account.updateVerification(userId, secret);
-    await account.deleteSession('current');
+    const querySnapshot = await getDocs(profileQuery);
+    return querySnapshot.docs[0].data();
   } catch (error) {
     console.log(error);
   }
