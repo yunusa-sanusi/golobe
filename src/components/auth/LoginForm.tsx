@@ -1,11 +1,14 @@
+import { useEffect } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { Link } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
 
 import Input from '../Input';
 import Button from '../Button';
+import Toast from '../Toast';
 
 // Services
 import { loginEmailPasswordUser } from '../../services/auth';
+import { errorToast, successToast } from '../../utils/displayToast';
 
 export type FormData = {
   email: string;
@@ -16,15 +19,27 @@ const LoginForm = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<FormData>();
 
+  const location = useLocation();
+  const navigate = useNavigate();
+
   const onSubmit: SubmitHandler<FormData> = async (data) => {
-    const authResponse = await loginEmailPasswordUser(
-      data.email,
-      data.password,
-    );
-    console.log(authResponse);
+    try {
+      await loginEmailPasswordUser(data.email, data.password);
+      reset();
+      navigate('/', { state: { loginSuccess: true } });
+    } catch (error) {
+      if (error instanceof Error) {
+        if (error.message.includes('invalid-credential')) {
+          console.log('Invalid username or password');
+          // displayToast('Invalid username or password', 'bg-red-500 text-white');
+          errorToast('Invalid user or password');
+        }
+      }
+    }
   };
 
   const emailValidation = {
@@ -35,8 +50,18 @@ const LoginForm = () => {
     },
   };
 
+  useEffect(() => {
+    if (location.state?.signupSuccess)
+      successToast(
+        'Your account has been created successfully. Check your mail for verification.',
+      );
+
+    navigate(location.pathname, { replace: true });
+  }, []);
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
+      <Toast />
       <Input
         type="email"
         label="Email"

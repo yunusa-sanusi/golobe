@@ -1,11 +1,13 @@
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { Link, redirect } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 
 // Components
 import Input from '../Input';
 import Button from '../Button';
+import Toast from '../Toast';
 
 import { createEmailPasswordUser } from '../../services/auth';
+import { errorToast } from '../../utils/displayToast';
 
 export type FormData = {
   firstName: string;
@@ -26,10 +28,19 @@ const SignupForm = () => {
     formState: { errors },
   } = useForm<FormData>();
 
-  const onSubmit: SubmitHandler<FormData> = (data) => {
-    createEmailPasswordUser(data);
-    reset();
-    redirect('/login');
+  const navigate = useNavigate();
+
+  const onSubmit: SubmitHandler<FormData> = async (data) => {
+    try {
+      await createEmailPasswordUser(data);
+      reset();
+      navigate('/auth/login', { state: { signupSuccess: true } });
+    } catch (error) {
+      if (error instanceof Error) {
+        if (error.message.includes('email-already-in-use'))
+          errorToast('Email already exists.');
+      }
+    }
   };
 
   const emailValidation = {
@@ -62,6 +73,7 @@ const SignupForm = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
+      <Toast />
       <div className="block md:flex md:gap-x-3">
         <Input
           type="text"
